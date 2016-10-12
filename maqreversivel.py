@@ -1,3 +1,5 @@
+from entrada import Entrada
+
 class Fita:
 	def __init__(self, conteudo):
 		self.estados = dict()
@@ -13,7 +15,7 @@ class Fita:
 class Cabecote:
 	#representa o cabeçote de uma máquina de turing
 	def __init__(self):
-		self.fita = Fita()
+		self.fita = Fita("")
 		self.posicao = 0
 
 	def moverCabecote(self, movimento):
@@ -93,6 +95,8 @@ class Maquina:
 			raise Exception ('Maquina nao tem um estado {transicao.estadoVeio} registrado'.format(transicao=transicao))
 
 
+
+
 	def definirAlfabetoFita(self, alfab):
 #		for i in range(len(alfab)):
 #			if alfab[i] not in alfab:
@@ -109,21 +113,23 @@ class Maquina:
 		leituraHistorico = fitas["historico"].leitura()
 		leituraSaida = fitas["saida"].leitura()
 
-		
+
 
 def main():
+	entrada = Entrada()
 	m = Maquina()
-	m.definirAlfabetoEntrada("01#")
-	m.definirAlfabetoFita("01#xB")
+	m.definirAlfabetoEntrada(entrada.alfabetoentrada)
+	m.definirAlfabetoFita(entrada.alfabetofita)
 	m.defineEstadoInicial = "1"
 	m.defineEstadoFinal = "4"
-	for i in range(4):
-		m.adicionaEstadoNaFita(str(i), "entrada")
+	for i in range(entrada.estados):
+		m.adicionaEstadoNaFita(entrada.listEstados[i], "entrada")
 
-	t1 = Transicao("1", ["0", "B", "B"], ["x", "0", "B"], "2")
-	t2 = Transicao("2", ["/", "/", "B"], ["D", "D", "B"], "3")
-	t3 = Transicao("3", ["0", "B", "B"], ["x", "0", "B"], "4")
+	for i in range(int(entrada.numTransicoes/2)):
+		t = Transicao(entrada.transicoes[i][0], [entrada.transicoes[i][1], entrada.transicoes[i][2], entrada.transicoes[i][3]],
+		[entrada.transicoes[i+1][1], entrada.transicoes[i+1][2], entrada.transicoes[i+1][3]], entrada.transicoes[i+1][0]) 
+		m.adicionaTransicao(t)
 
-	m.adicionaEntradaNaFita("00")
+	m.adicionaEntradaNaFita(entrada.fita)
 
 main()

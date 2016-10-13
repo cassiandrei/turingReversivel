@@ -31,6 +31,14 @@ class Entrada:
 		self.alfabetofita = input().split(' ')
 		#print("Alfabeto fita: ", self.alfabetofita)
 
+		for i in self.alfabetoentrada:
+			contem = False
+			for j in self.alfabetofita:
+				if j == i:
+					contem = True
+			if contem == False:		
+				raise Exception ('Entrada invalida', 'Alfabeto da entrada nao esta contida no alfabeto da maquina!')
+
 		for i in range(self.numTransicoes):
 			linha = input().replace('(',"").replace(')',"").split('=')
 			self.transicoes.append(linha[0].split(','))

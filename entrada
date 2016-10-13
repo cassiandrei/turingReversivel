@@ -7,6 +7,23 @@
 (3,0,B,B)=(4,x,0,B)
 00 
 
+			  
+			  |
+Fita Entrada: 0 0 
+
+
+Fita Historico: B B
+
+
+Fita Saida: B B B
+
+
+
+
+nome = 1
+
+
+
 
 estadoVeio = 1
 estadoVai = 2

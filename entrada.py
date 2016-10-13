@@ -35,16 +35,21 @@ class Entrada:
 			linha = input().replace('(',"").replace(')',"").split('=')
 			self.transicoes.append(linha[0].split(','))
 			self.transicoes.append(linha[1].split(','))
-		print("Transicoes: ", self.transicoes)	
+		#print("Transicoes: ", self.transicoes)	
 
 		for i in self.transicoes:
-			for j in i[-1:]:
+			for j in i:
 				contem = False
-				for k in self.alfabetofita:
-					if j == k or j == '/':
-						contem = True
-				if contem == False:
-					raise Exception ('Entrada invalida', 'Transicoes com alfabeto diferente da suportada!')
+				if j != '/':
+					for k in self.alfabetofita:
+						if j == k or j == '/' or j == 'D' or j == 'E':
+							contem = True
+					for k in self.listEstados:
+						if j == k:
+							contem = True
+					if contem == False:
+						print(j)
+						raise Exception ('Entrada invalida', 'Transicoes com alfabeto diferente da suportada!')
 
 		self.fita = input()
 		#print("Entrada da fita: ", self.fita)

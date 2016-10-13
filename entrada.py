@@ -35,7 +35,7 @@ class Entrada:
 			linha = input().replace('(',"").replace(')',"").split('=')
 			self.transicoes.append(linha[0].split(','))
 			self.transicoes.append(linha[1].split(','))
-		#print("Transicoes: ", self.transicoes)	
+		print("Transicoes: ", self.transicoes)	
 
 		for i in self.transicoes:
 			for j in i[-1:]:

@@ -5,37 +5,4 @@
 (1,0,B,B)=(2,x,0,B)
 (2,/,/,B)=(3,D,D,B)
 (3,0,B,B)=(4,x,0,B)
-00 
-
-O B B    X 0 B
-
-
-
-
-			  |
-Fita Entrada: X X 
-
-
-Fita Historico: 0 0
-
-
-Fita Saida: B B B
-
-
-
-
-nome = 1
-
-
-
-
-estadoVeio = 1
-estadoVai = 2
-simbolosLeu = "0", "B", "B"
-simbolosEscreve = "x", "0", "B"
-
-(1,0,B,B)
-estadoInicio = 1
-fita[0] = 0
-fita[1] = B
-fita[2] = B
+00

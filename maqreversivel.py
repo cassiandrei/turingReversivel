@@ -178,6 +178,7 @@ class Maquina:
 		leituraEntrada = self.cabecotes[0].leitura()
 		leituraHistorico = self.cabecotes[1].leitura()
 		leituraSaida = self.cabecotes[2].leitura()
+		
 		print("Estagio inicial das fitas: ")
 		self.printaFitas()
 
@@ -307,7 +308,7 @@ def main():
 	m.defineEstadoInicial(entrada.transicoes[0][0])
 	m.estadoAtual = m.estadoInicial
 	m.defineEstadoFinal(entrada.transicoes[entrada.numTransicoes*2-1][0])
-	
+
 	for i in range(entrada.estados):
 		m.adicionaEstadoNaFita(entrada.listEstados[i], "entrada")
 

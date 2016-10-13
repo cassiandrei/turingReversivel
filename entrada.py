@@ -37,10 +37,25 @@ class Entrada:
 			self.transicoes.append(linha[1].split(','))
 		print("Transicoes: ", self.transicoes)	
 
+		for i in self.transicoes:
+			for j in i[-1:]:
+				contem = False
+				for k in self.alfabetofita:
+					if j == k or j == '/':
+						contem = True
+				if contem == False:
+					raise Exception ('Entrada invalida', 'Transicoes com alfabeto diferente da suportada!')
+
 		self.fita = input()
 		#print("Entrada da fita: ", self.fita)
 		
-
+		for i in list(self.fita):
+			contem = False
+			for j in self.alfabetoentrada:
+				if i == j:
+					contem = True
+			if contem == False:
+				raise Exception ('Entrada invalida', 'Entrada da fita com alfabeto diferente da suportada!')
 
 
 	

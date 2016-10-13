@@ -83,19 +83,6 @@ class Transicao:
 				return False
 		return True
 
-	def checaAlfabeto(self):
-		pass
-
-
-	def printarTransicao(self):
-		print("de onde veio: " + self.estadoVeio)
-		print("para onde vai: " + self.estadoVai)
-		print("simbolos de entrada: " + str(self.simbolosEntrada))
-		print("simbolos de saida: " + str(self.simbolosSaida))
-
-
-
-
 	def reverterTransicao(self):
 		entrada = list()
 		saida = list()
@@ -158,31 +145,51 @@ class Maquina:
 
 
 	def definirAlfabetoFita(self, alfab):
-#		for i in range(len(alfab)):
-#			if alfab[i] not in alfab:
-#				raise Exception("letra nao existe no alfabeto de entrada")
 		self.alfabetoFita = list(alfab)
 
 	def definirAlfabetoEntrada(self, alfab):
 		self.alfabetoEntrada = list(alfab)
+
+	def printaFitas(self):
+		if not self.fitas["entrada"].conteudo:
+			print (self.fitas["entrada"].vazio)
+		else:
+			print (self.fitas["entrada"].conteudo)
+
+		if not self.fitas["historico"].conteudo:
+			print (self.fitas["historico"].vazio)
+		else:
+			print (self.fitas["historico"].conteudo)
+
+		if not self.fitas["saida"].conteudo:
+			print (self.fitas["saida"].vazio)
+		else:
+			print (self.fitas["saida"].conteudo)
+
 
 
 	def passo(self):
 		leituraEntrada = self.cabecotes[0].leitura()
 		leituraHistorico = self.cabecotes[1].leitura()
 		leituraSaida = self.cabecotes[2].leitura()
-
-
+		print("Estagio inicial das fitas: ")
+		self.printaFitas()
 		for transicao in self.fitas["entrada"].estados[self.estadoAtual].transicoes:
 			if transicao.testaTransicao([leituraEntrada, leituraHistorico, leituraSaida]):
+
+				print ("transicao precisa ler " + str(transicao.simbolosEntrada))
+				print ("transicao vai realizar " + str(transicao.simbolosSaida))
+
 				for i in range (3):
 					if transicao.simbolosEntrada[i] == "/":
+
 						self.cabecotes[i].moverCabecote(transicao.simbolosSaida[i])
 					else:
 						self.cabecotes[i].escrever(transicao.simbolosSaida[i])
 						#self.cabecotes[i].
 				self.estadoAtual = transicao.estadoVai
 				break
+
 		if self.estadoAtual == self.estadoFinal:
 			return False
 		else:
@@ -206,15 +213,17 @@ class Maquina:
 	def moverCabecoteSaida(self):
 		while (self.cabecotes[2].leitura() == "B"):
 			self.cabecotes[2].moverCabecote("D")
-		#print("cabecote saida" + str(self.fitas["saida"].conteudo))
+		while(self.cabecotes[2].leitura() != "B"):
+			self.cabecotes[2].moverCabecote("D")
+		self.cabecotes[2].moverCabecote("E")
 		
 
 	def configurarReversao(self):
 		self.copiaDeFita()
 		self.moverCabecoteSaida()
-		print(self.cabecotes[2].leitura())
-		print(self.cabecotes[2].posicao)
-		print("Conteudo: " + self.fitas["saida"].conteudo)
+		#print(self.cabecotes[2].leitura())
+		#print(self.cabecotes[2].posicao)
+		#print("Conteudo: " + self.fitas["saida"].conteudo)
 		aux = self.estadoInicial
 		self.estadoInicial = self.estadoFinal
 		self.estadoFinal = aux
@@ -225,33 +234,34 @@ class Maquina:
 			self.fitas["saida"].estados[nome] = Estado(nome)
 		
 		for nome, estado in self.fitas["entrada"].estados.items():
-			print ("estado " + 	nome)
+			#print ("estado " + 	nome)
 			for transicao in estado.transicoes:
 				transicao = transicao.reverterTransicao()
 				self.fitas["saida"].estados[transicao.estadoVeio].adicionaTransicao(transicao)
-				transicao.printarTransicao()
+				
 
 	def reverter(self):
 		leituraEntrada = self.cabecotes[2].leitura()
 		leituraHistorico = self.cabecotes[1].leitura()
 		leituraSaida = self.cabecotes[0].leitura()
-		print("Cabecotes: " + str([leituraEntrada, leituraHistorico, leituraSaida]) )
+
 		for transicao in self.fitas["saida"].estados[self.estadoAtual].transicoes:
 			
 			if transicao.testaTransicao([leituraEntrada, leituraHistorico, leituraSaida]):
+				print(transicao.simbolosEntrada)
 				for i in range (3):
 					if transicao.simbolosEntrada[i] == "/":
-						self.cabecotes[i].moverCabecote(transicao.simbolosSaida[i], True)
+						self.cabecotes[2-i].moverCabecote(transicao.simbolosSaida[i], True)
 					else:
-						print("escreveu\n")
-						self.cabecotes[i].escrever(transicao.simbolosEntrada[i])
+						#print("escreveu\n")
+						self.cabecotes[2-i].escrever(transicao.simbolosSaida[i])
 						#self.cabecotes[i].
 				self.estadoAtual = transicao.estadoVai
 				break
 		if self.estadoAtual == self.estadoFinal:
 			return False
 		else:
-			return False
+			return True
 
 
 """Do jeito implementado é necessário que o estadoInicial seja o primeiro estado que da primeira transição,
@@ -278,11 +288,13 @@ def main():
 
 	while(m.passo()):
 		pass
-
+	
 	m.configurarReversao()
 
 	while(m.reverter()):
+
 		pass
+	m.reverter()
 
 
 main()

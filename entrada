@@ -7,12 +7,16 @@
 (3,0,B,B)=(4,x,0,B)
 00 
 
-			  
+O B B    X 0 B
+
+
+
+
 			  |
-Fita Entrada: 0 0 
+Fita Entrada: X X 
 
 
-Fita Historico: B B
+Fita Historico: 0 0
 
 
 Fita Saida: B B B

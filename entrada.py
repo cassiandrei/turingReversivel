@@ -5,7 +5,7 @@ class Entrada:
 		self.simbolosentrada = 0
 		self.simbolosfita = 0
 		self.numTransicoes = 0
-		self	.listEstados = list()
+		self.listEstados = list()
 		self.alfabetoentrada = list()
 		self.alfabetofita = list()
 		self.transicoes = list()
@@ -25,10 +25,10 @@ class Entrada:
 		self.listEstados = input().split(' ')
 		#print("Estados : ", self.listEstados) 		
 
-		self.alfabetoentrada = input().replace(' ', "")
+		self.alfabetoentrada = input().split(' ')
 		#print("Alfabeto entrada: ", self.alfabetoentrada)
 
-		self.alfabetofita = input().replace(' ', "")
+		self.alfabetofita = input().split(' ')
 		#print("Alfabeto fita: ", self.alfabetofita)
 
 		for i in range(self.numTransicoes):
@@ -39,7 +39,6 @@ class Entrada:
 
 		self.fita = input()
 		#print("Entrada da fita: ", self.fita)
-	
 		
 
 
